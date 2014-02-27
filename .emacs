@@ -17,7 +17,11 @@
 ;; initialize package manager and install missing packages
 (package-initialize)
 
-(setq package-list '(markdown-mode web-mode haskell-mode zenburn-theme))
+(setq package-list '(markdown-mode
+		     web-mode 
+		     haskell-mode 
+		     zenburn-theme 
+		     expand-region))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -43,6 +47,9 @@
 (require 'haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; THEMES ;;
 
@@ -80,30 +87,17 @@
   :variable bzg-big-fringe-mode
   :group 'editing-basics
   (if (not bzg-big-fringe-mode)
-      (set-fringe-style nil)
+      (progn
+	(set-fringe-style nil)
+	(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+		fringe-bitmaps)
+	)
     (set-fringe-mode
      (/ (- (frame-pixel-width)
            (* 100 (frame-char-width)))
         2))))
-
-(add-hook 'toggle-frame-fullscreen-hook 
-	  (lambda()
-	    (if bzg-big-fringe-mode
-		(message "off")
-	      (message "on"))))
-
-
-;; (add-hook 'window-configuration-change-hook
-;;           (lambda ()
-;;             (if (delq nil
-;;                       (let ((fw (frame-width)))
-;;                         (mapcar (lambda(w) (< (window-width w) fw))
-;;                                 (window-list))))
-;;                 (bzg-big-fringe-mode 0)
-;;               (bzg-big-fringe-mode 1))))
-
-(setq cursor-type 'hbar)
+(global-set-key (kbd "C-`") 'bzg-big-fringe-mode)
 
 ;; Get rid of the indicators in the fringe
 ;;(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-;;        fringe-bitmaps)
+;;       fringe-bitmaps)
