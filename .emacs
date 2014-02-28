@@ -18,10 +18,11 @@
 (package-initialize)
 
 (setq package-list '(markdown-mode
-		     web-mode 
-		     haskell-mode 
-		     zenburn-theme 
-		     expand-region))
+		     web-mode
+		     haskell-mode
+		     zenburn-theme
+		     expand-region
+		     multiple-cursors))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -30,14 +31,14 @@
 
 ;; MODES ;;
 
-(require 'web-mode) 
+(require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode)) 
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode)) 
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode)) 
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)) 
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode)) 
+(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 (require 'markdown-mode)
@@ -50,6 +51,14 @@
 
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
 
 ;; THEMES ;;
 
@@ -69,8 +78,9 @@
   (windmove-default-keybindings))
 
 ;; GUI STRIPTEASE ;;
-;  Bastien Guerry
-;  http://bzg.fr/emacs-strip-tease.html
+; Bastien Guerry
+; http://bzg.fr/emacs-strip-tease.html
+(blink-cursor-mode 0)
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
@@ -88,10 +98,10 @@
   :group 'editing-basics
   (if (not bzg-big-fringe-mode)
       (progn
-	(set-fringe-style nil)
-	(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-		fringe-bitmaps)
-	)
+(set-fringe-style nil)
+(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+fringe-bitmaps)
+)
     (set-fringe-mode
      (/ (- (frame-pixel-width)
            (* 100 (frame-char-width)))
@@ -100,4 +110,4 @@
 
 ;; Get rid of the indicators in the fringe
 ;;(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-;;       fringe-bitmaps)
+;; fringe-bitmaps)
