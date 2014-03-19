@@ -40,6 +40,11 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(eval-after-load 'web-mode
+  '(progn
+     (define-key web-mode-map (kbd "M-<down>") 'web-mode-tag-next)
+     (define-key web-mode-map (kbd "M-<up>") 'web-mode-tag-previous)))
+
 
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
@@ -59,6 +64,8 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
 
 ;; THEMES ;;
 
@@ -66,6 +73,8 @@
   (load-theme 'zenburn t))
 
 ;; USEABILITY ;;
+
+(column-number-mode 1)
 
 (show-paren-mode 1)
 (setq show-paren-delay 0)
