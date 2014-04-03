@@ -22,7 +22,8 @@
 		     haskell-mode
 		     zenburn-theme
 		     expand-region
-		     multiple-cursors))
+		     multiple-cursors
+		     flycheck))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -67,6 +68,11 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward)
 
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+(global-set-key (kbd "C-.") 'flycheck-mode)
+
 ;; THEMES ;;
 
 (when (display-graphic-p)
@@ -107,14 +113,17 @@
   :group 'editing-basics
   (if (not bzg-big-fringe-mode)
       (progn
-(set-fringe-style nil)
-(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-fringe-bitmaps)
-)
-    (set-fringe-mode
-     (/ (- (frame-pixel-width)
-           (* 100 (frame-char-width)))
-        2))))
+	(set-fringe-style nil)
+	(setcdr (assq 'continuation fringe-indicator-alist)
+	    '(left-curly-arrow right-curly-arrow)))
+    (progn
+      (set-fringe-mode
+       (/ (- (frame-pixel-width)
+	     (* 100 (frame-char-width)))
+	  2))
+      (setcdr (assq 'continuation fringe-indicator-alist)
+	    '(nil nil)))))
+
 (global-set-key (kbd "C-`") 'bzg-big-fringe-mode)
 
 ;; Get rid of the indicators in the fringe
