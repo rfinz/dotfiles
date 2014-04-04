@@ -88,6 +88,10 @@
 (set-face-foreground 'show-paren-match-face "#ff00aa")
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
+;; Firefox style tabbing
+(global-set-key (kbd "C-<tab>") 'next-buffer)
+(global-set-key (kbd "C-S-<iso-lefttab>") 'previous-buffer)
+(global-set-key (kbd "C-S-<tab>") 'previous-buffer)
 
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
