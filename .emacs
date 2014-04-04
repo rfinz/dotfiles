@@ -105,9 +105,7 @@
 (setq highlight-changes-visibility-initial-state nil)
 (global-highlight-changes-mode t)
 (set-face-background 'highlight-changes "#916868")
-(set-face-background 'highlight-changes-delete "#382f2f")
 (set-face-foreground 'highlight-changes (face-foreground 'default))
-(set-face-foreground 'highlight-changes-delete (face-foreground 'default))
 (global-set-key (kbd "C-<f6>") 'highlight-changes-visible-mode)
 (global-set-key (kbd "C-S-<f6>") 'highlight-changes-remove-highlight)
 
