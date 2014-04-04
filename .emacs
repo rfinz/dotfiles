@@ -1,5 +1,9 @@
+;;; rfinz --- a dot emacs file
 (add-to-list 'load-path "~/.emacs.d")
 
+;;; Commentary:
+
+;;; Code:
 
 ;; PACKAGES ;;
 
@@ -16,7 +20,7 @@
 
 ;; initialize package manager and install missing packages
 (package-initialize)
-
+(defvar package-list)
 (setq package-list '(markdown-mode
 		     web-mode
 		     haskell-mode
@@ -73,6 +77,8 @@
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (global-set-key (kbd "C-.") 'flycheck-mode)
 
+
+
 ;; THEMES ;;
 
 (when (display-graphic-p)
@@ -93,8 +99,21 @@
 (global-set-key (kbd "C-S-<iso-lefttab>") 'previous-buffer)
 (global-set-key (kbd "C-S-<tab>") 'previous-buffer)
 
+;; EMACS-FU change tracking
+; DJCB
+; http://emacs-fu.blogspot.com/2009/05/tracking-changes.html
+(setq highlight-changes-visibility-initial-state nil)
+(global-highlight-changes-mode t)
+(set-face-background 'highlight-changes "#916868")
+(set-face-background 'highlight-changes-delete "#382f2f")
+(set-face-foreground 'highlight-changes (face-foreground 'default))
+(set-face-foreground 'highlight-changes-delete (face-foreground 'default))
+(global-set-key (kbd "C-<f6>") 'highlight-changes-visible-mode)
+(global-set-key (kbd "C-S-<f6>") 'highlight-changes-remove-highlight)
+
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
+
 
 ;; GUI STRIPTEASE ;;
 ; Bastien Guerry
