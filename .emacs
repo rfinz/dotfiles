@@ -104,8 +104,8 @@
 ; http://emacs-fu.blogspot.com/2009/05/tracking-changes.html
 (setq highlight-changes-visibility-initial-state nil)
 (global-highlight-changes-mode t)
-(set-face-background 'highlight-changes "#916868")
-(set-face-foreground 'highlight-changes (face-foreground 'default))
+(set-face-background 'highlight-changes "#7ACC7A")
+(set-face-foreground 'highlight-changes (face-background 'default))
 (global-set-key (kbd "C-<f6>") 'highlight-changes-visible-mode)
 (global-set-key (kbd "C-S-<f6>") 'highlight-changes-remove-highlight)
 
