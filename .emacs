@@ -99,6 +99,14 @@
 (global-set-key (kbd "C-S-<iso-lefttab>") 'previous-buffer)
 (global-set-key (kbd "C-S-<tab>") 'previous-buffer)
 
+;; Kill all Dired Buffers
+(defun kill-dired-buffers ()
+  (interactive)
+  (mapc (lambda (buffer) 
+	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer)) 
+	    (kill-buffer buffer))) 
+	(buffer-list)))
+
 ;; EMACS-FU change tracking
 ; DJCB
 ; http://emacs-fu.blogspot.com/2009/05/tracking-changes.html
