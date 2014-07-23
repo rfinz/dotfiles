@@ -27,7 +27,8 @@
 		     zenburn-theme
 		     expand-region
 		     multiple-cursors
-		     flycheck))
+		     flycheck
+		     exec-path-from-shell))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -77,7 +78,9 @@
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (global-set-key (kbd "C-.") 'flycheck-mode)
 
-
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;; THEMES ;;
 
@@ -124,10 +127,10 @@
 ;; GUI STRIPTEASE ;;
 ; Bastien Guerry
 ; http://bzg.fr/emacs-strip-tease.html
-(blink-cursor-mode 0)
-(scroll-bar-mode 0)
-(tool-bar-mode 0)
-(menu-bar-mode 0)
+(blink-cursor-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 (setq initial-scratch-message "")
 (setq inhibit-startup-message t)
 (setq visible-bell t)
