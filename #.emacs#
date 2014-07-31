@@ -53,7 +53,7 @@
 
 
 (require 'markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'uto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.mdwn\\'" . markdown-mode))
 
 (require 'haskell-mode)
@@ -77,8 +77,6 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (global-set-key (kbd "C-.") 'flycheck-mode)
-
-
 
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
@@ -163,7 +161,3 @@
 ;; Get rid of the indicators in the fringe
 ;;(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
 ;; fringe-bitmaps)
-
-(provide '.emacs)
-
-;;; .emacs ends here
