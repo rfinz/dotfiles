@@ -28,7 +28,8 @@
 		     expand-region
 		     multiple-cursors
 		     flycheck
-		     exec-path-from-shell))
+		     exec-path-from-shell
+		     pyvenv))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -78,7 +79,8 @@
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (global-set-key (kbd "C-.") 'flycheck-mode)
 
-
+(require 'pyvenv)
+(add-hook 'python-mode-hook 'pyvenv-mode)
 
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
