@@ -74,6 +74,10 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward)
 
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t)
+
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
@@ -155,7 +159,7 @@
     (progn
       (set-fringe-mode
        (/ (- (frame-pixel-width)
-	     (* 100 (frame-char-width)))
+	     (* 82 (frame-char-width)))
 	  2))
       (setcdr (assq 'continuation fringe-indicator-alist)
 	    '(nil nil)))))
