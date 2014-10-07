@@ -29,7 +29,8 @@
 		     multiple-cursors
 		     flycheck
 		     exec-path-from-shell
-		     pyvenv))
+		     pyvenv
+		     move-text))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -117,6 +118,13 @@
 	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer)) 
 	    (kill-buffer buffer))) 
 	(buffer-list)))
+
+;; Python keybindings
+(defun rfinz-python-keys ()
+  "My personal preferences for python."
+  (local-set-key (kbd "M-<up>") 'move-text-up)
+  (local-set-key (kbd "M-<down>") 'move-text-down))
+(add-hook 'python-mode-hook 'rfinz-python-keys)
 
 ;; EMACS-FU change tracking
 ; DJCB
