@@ -30,7 +30,8 @@
 		     flycheck
 		     exec-path-from-shell
 		     pyvenv
-		     move-text))
+		     move-text
+		     neotree))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -83,6 +84,9 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (global-set-key (kbd "C-.") 'flycheck-mode)
+
+(require 'neotree)
+(global-set-key (kbd "<f8>") 'neotree-toggle)
 
 (require 'pyvenv)
 (add-hook 'python-mode-hook 'pyvenv-mode)
