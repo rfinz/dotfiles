@@ -49,11 +49,7 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(eval-after-load 'web-mode
-  '(progn
-     (define-key web-mode-map (kbd "M-<down>") 'web-mode-tag-next)
-     (define-key web-mode-map (kbd "M-<up>") 'web-mode-tag-previous)))
-
+(setq web-mode-engines-alist '(("django" . "\\.html?\\'")) )
 
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
@@ -129,6 +125,13 @@
   (local-set-key (kbd "M-<up>") 'move-text-up)
   (local-set-key (kbd "M-<down>") 'move-text-down))
 (add-hook 'python-mode-hook 'rfinz-python-keys)
+
+;; Web keybindings
+(defun rfinz-web-keys ()
+  "My personal preferences for web development."
+  (local-set-key (kbd "M-<up>") 'web-mode-block-previous)
+  (local-set-key (kbd "M-<down>") 'web-mode-block-next))
+(add-hook 'web-mode-hook 'rfinz-web-keys)
 
 ;; EMACS-FU change tracking
 ; DJCB
