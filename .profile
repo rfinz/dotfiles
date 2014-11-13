@@ -1,1 +1,1 @@
-alias profile="$EDITOR ~/.bash_profile && source ~/.bash_profile"
+alias profile="$EDITOR ~/.profile && source ~/.profile"
