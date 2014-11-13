@@ -1,5 +1,5 @@
 ;;; rfinz --- a dot emacs file
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;;; Commentary:
 
