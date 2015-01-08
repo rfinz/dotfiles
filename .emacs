@@ -31,7 +31,8 @@
 		     exec-path-from-shell
 		     pyvenv
 		     move-text
-		     neotree))
+		     neotree
+		     wc-mode))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -51,9 +52,14 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (setq web-mode-engines-alist '(("django" . "\\.html?\\'")) )
 
+(require 'wc-mode)
+(require 'flyspell-mode)
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.mdwn\\'" . markdown-mode))
+(add-hook 'markdown-mode-hook 'flyspell-mode)
+(add-hook 'markdown-mode-hook 'wc-mode)
+
 
 (require 'haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -105,6 +111,9 @@
 (set-face-background 'show-paren-match-face (face-background 'default))
 (set-face-foreground 'show-paren-match-face "#ff00aa")
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
+
+(add-to-list 'initial-frame-alist '(height . 42))
+    (add-to-list 'initial-frame-alist '(width . 162))
 
 ;; Firefox style tabbing
 (global-set-key (kbd "C-<tab>") 'next-buffer)
