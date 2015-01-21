@@ -122,6 +122,14 @@
 (add-to-list 'initial-frame-alist '(height . 42))
     (add-to-list 'initial-frame-alist '(width . 162))
 
+;; Write backup files to own directory
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+;; Make backups of files, even when they're in version control
+(setq vc-make-backup-files t)
+
 ;; Firefox style tabbing
 (global-set-key (kbd "C-<tab>") 'next-buffer)
 (global-set-key (kbd "C-S-<iso-lefttab>") 'previous-buffer)
