@@ -118,10 +118,6 @@
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
-;; Default frame to accommodate two 80 column windows
-(add-to-list 'initial-frame-alist '(height . 42))
-    (add-to-list 'initial-frame-alist '(width . 162))
-
 ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
