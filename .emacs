@@ -111,6 +111,14 @@
 (set-face-foreground 'show-paren-match-face "#ff00aa")
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
+;; Auto refresh buffers
+(global-auto-revert-mode 1)
+
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+
+;; Default frame to accommodate two 80 column windows
 (add-to-list 'initial-frame-alist '(height . 42))
     (add-to-list 'initial-frame-alist '(width . 162))
 
