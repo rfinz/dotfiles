@@ -32,7 +32,8 @@
 		     pyvenv
 		     move-text
 		     neotree
-		     wc-mode))
+		     wc-mode
+		     monokai-theme))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -201,6 +202,13 @@
 
 (global-set-key (kbd "C-`") 'bzg-big-fringe-mode)
 
+;; Alpha-mode
+;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
+;; (set-frame-parameter (selected-frame) 'alpha '(85 50))
+;; (add-to-list 'default-frame-alist '(alpha 85 50))
+;; http://www.emacswiki.org/emacs/TransparentEmacs
+
+
 ;; Get rid of the indicators in the fringe
 ;;(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
 ;; fringe-bitmaps)
@@ -208,3 +216,17 @@
 (provide '.emacs)
 
 ;;; .emacs ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("4e262566c3d57706c70e403d440146a5440de056dfaeb3062f004da1711d83fc" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
