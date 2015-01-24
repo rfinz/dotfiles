@@ -33,7 +33,8 @@
 		     move-text
 		     neotree
 		     wc-mode
-		     monokai-theme))
+		     monokai-theme
+		     magit))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
