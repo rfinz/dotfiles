@@ -112,12 +112,13 @@
 (set-face-foreground 'show-paren-match-face "#ff00aa")
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
-;; Auto refresh buffers
-(global-auto-revert-mode 1)
+;; Bug in Emacs prevents this from being useful
+;; ;; Auto refresh buffers
+;; (global-auto-revert-mode 1)
 
-;; Also auto refresh dired, but be quiet about it
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
+;; ;; Also auto refresh dired, but be quiet about it
+;; (setq global-auto-revert-non-file-buffers t)
+;; (setq auto-revert-verbose nil)
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
@@ -179,7 +180,7 @@
 (setq inhibit-startup-message t)
 (setq visible-bell t)
 
-;; BZG Big Fringe Mode - tiny mode
+;; BZG Big Fringe Mode - tiny mode (edited by rfinz)
 (defvar bzg-big-fringe-mode nil)
 (define-minor-mode bzg-big-fringe-mode
   "Minor mode to use big fringe in the current buffer."
@@ -193,14 +194,42 @@
 	(setcdr (assq 'continuation fringe-indicator-alist)
 	    '(left-curly-arrow right-curly-arrow)))
     (progn
-      (set-fringe-mode
-       (/ (- (frame-pixel-width)
-	     (* 82 (frame-char-width)))
-	  2))
+      (set-fringe-style
+       (max (/ (* (- (window-total-width) 80) (frame-char-width)) 2) 8))
+
       (setcdr (assq 'continuation fringe-indicator-alist)
 	    '(nil nil)))))
 
 (global-set-key (kbd "C-`") 'bzg-big-fringe-mode)
+
+
+;; BZG Hidden Mode Line Mode
+;; See http://bzg.fr/emacs-hide-mode-line.html
+(defvar-local hidden-mode-line-mode nil)
+(defvar-local hide-mode-line nil)
+
+(define-minor-mode hidden-mode-line-mode
+  "Minor mode to hide the mode-line in the current buffer."
+  :init-value nil
+  :global nil
+  :variable hidden-mode-line-mode
+  :group 'editing-basics
+  (if hidden-mode-line-mode
+      (setq hide-mode-line mode-line-format
+            mode-line-format nil)
+    (setq mode-line-format hide-mode-line
+          hide-mode-line nil))
+  (force-mode-line-update)
+  ;; Apparently force-mode-line-update is not always enough to
+  ;; redisplay the mode-line
+  (redraw-display)
+  (when (and (called-interactively-p 'interactive)
+             hidden-mode-line-mode)
+    (run-with-idle-timer
+     0 nil 'message
+     (concat "Hidden Mode Line Mode enabled.  "
+             "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
+
 
 ;; Alpha-mode
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
@@ -216,17 +245,4 @@
 (provide '.emacs)
 
 ;;; .emacs ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("4e262566c3d57706c70e403d440146a5440de056dfaeb3062f004da1711d83fc" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
