@@ -113,6 +113,8 @@
 (set-face-foreground 'show-paren-match-face "#ff00aa")
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; Bug in Emacs prevents this from being useful
 ;; ;; Auto refresh buffers
 ;; (global-auto-revert-mode 1)
@@ -126,6 +128,10 @@
       `(("." . ,(expand-file-name
                  (concat user-emacs-directory "backups")))))
 
+;; Write autosave files to temp
+(setq auto-save-file-name-transforms
+          `((".*" ,temporary-file-directory t)))
+
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
@@ -137,9 +143,9 @@
 ;; Kill all Dired Buffers
 (defun kill-dired-buffers ()
   (interactive)
-  (mapc (lambda (buffer) 
-	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer)) 
-	    (kill-buffer buffer))) 
+  (mapc (lambda (buffer)
+	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+	    (kill-buffer buffer)))
 	(buffer-list)))
 
 ;; Python keybindings
@@ -246,4 +252,3 @@
 (provide '.emacs)
 
 ;;; .emacs ends here
-
