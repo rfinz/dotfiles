@@ -34,7 +34,10 @@
 		     neotree
 		     wc-mode
 		     monokai-theme
-		     magit))
+		     magit
+		     projectile
+		     diminish
+		     flx-ido))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -81,7 +84,9 @@
 
 (require 'ido)
 (ido-mode t)
+(flx-ido-mode t)
 (setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
 
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -97,6 +102,10 @@
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+(require 'projectile)
+(projectile-global-mode)
+
 
 ;; THEMES ;;
 
@@ -114,6 +123,9 @@
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Increase garbage-collection threshold
+(setq gc-cons-threshold 20000000)
 
 ;; Bug in Emacs prevents this from being useful
 ;; ;; Auto refresh buffers
@@ -248,6 +260,11 @@
 ;; Get rid of the indicators in the fringe
 ;;(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
 ;; fringe-bitmaps)
+
+;; Diminish Modes
+(require 'diminish)
+(diminish 'projectile-mode)
+(diminish 'highlight-changes-mode)
 
 (provide '.emacs)
 
