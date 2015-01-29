@@ -38,7 +38,8 @@
 		     projectile
 		     diminish
 		     flx-ido
-		     ag))
+		     ag
+		     frame-cmds))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -107,6 +108,11 @@
 (require 'projectile)
 (projectile-global-mode)
 
+(require 'frame-cmds)
+(global-set-key (kbd "<s-up>") 'move-frame-up)
+(global-set-key (kbd "<s-down>") 'move-frame-down)
+(global-set-key (kbd "<s-left>") 'move-frame-left)
+(global-set-key (kbd "<s-right>") 'move-frame-right)
 
 ;; THEMES ;;
 
@@ -171,8 +177,8 @@
 ;; Web keybindings
 (defun rfinz-web-keys ()
   "My personal preferences for web development."
-  (local-set-key (kbd "M-<up>") 'web-mode-block-previous)
-  (local-set-key (kbd "M-<down>") 'web-mode-block-next))
+  (local-set-key (kbd "M-<up>") 'web-mode-element-previous)
+  (local-set-key (kbd "M-<down>") 'web-mode-element-next))
 (add-hook 'web-mode-hook 'rfinz-web-keys)
 
 ;; EMACS-FU change tracking
