@@ -39,7 +39,8 @@
 		     diminish
 		     flx-ido
 		     ag
-		     frame-cmds))
+		     frame-cmds
+		     evil))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
