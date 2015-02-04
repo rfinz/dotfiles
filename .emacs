@@ -114,6 +114,10 @@
 (global-set-key (kbd "<s-down>") 'move-frame-down)
 (global-set-key (kbd "<s-left>") 'move-frame-left)
 (global-set-key (kbd "<s-right>") 'move-frame-right)
+(global-set-key (kbd "s-p") 'move-frame-up)
+(global-set-key (kbd "s-n") 'move-frame-down)
+(global-set-key (kbd "s-b") 'move-frame-left)
+(global-set-key (kbd "s-f") 'move-frame-right)
 
 ;; THEMES ;;
 
