@@ -99,6 +99,9 @@
 (require 'neotree)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 
+(require 'magit)
+(global-set-key (kbd "<f7>") 'magit-status)
+
 (require 'pyvenv)
 (add-hook 'python-mode-hook 'pyvenv-mode)
 
