@@ -280,6 +280,7 @@
 (require 'diminish)
 (diminish 'projectile-mode)
 (diminish 'highlight-changes-mode)
+(diminish 'magit-auto-revert-mode)
 
 (provide '.emacs)
 
