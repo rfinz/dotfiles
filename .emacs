@@ -35,6 +35,7 @@
 		     wc-mode
 		     monokai-theme
 		     magit
+		     magit-gitflow
 		     projectile
 		     diminish
 		     flx-ido
@@ -101,6 +102,9 @@
 
 (require 'magit)
 (global-set-key (kbd "<f7>") 'magit-status)
+
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 (require 'pyvenv)
 (add-hook 'python-mode-hook 'pyvenv-mode)
@@ -281,6 +285,7 @@
 (diminish 'projectile-mode)
 (diminish 'highlight-changes-mode)
 (diminish 'magit-auto-revert-mode)
+(diminish 'magit-gitflow-mode)
 
 (provide '.emacs)
 
