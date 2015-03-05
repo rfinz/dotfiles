@@ -180,18 +180,19 @@
 	(buffer-list)))
 
 ;; Python keybindings
-(defun rfinz-python-keys ()
+(defun rfinz-python-hook ()
   "My personal preferences for python."
   (local-set-key (kbd "M-<up>") 'move-text-up)
   (local-set-key (kbd "M-<down>") 'move-text-down))
-(add-hook 'python-mode-hook 'rfinz-python-keys)
+(add-hook 'python-mode-hook 'rfinz-python-hook)
 
 ;; Web keybindings
-(defun rfinz-web-keys ()
+(defun rfinz-web-hook ()
   "My personal preferences for web development."
+  (setq web-mode-markup-indent-offset 2)
   (local-set-key (kbd "M-<up>") 'web-mode-element-previous)
   (local-set-key (kbd "M-<down>") 'web-mode-element-next))
-(add-hook 'web-mode-hook 'rfinz-web-keys)
+(add-hook 'web-mode-hook 'rfinz-web-hook)
 
 ;; EMACS-FU change tracking
 ; DJCB
