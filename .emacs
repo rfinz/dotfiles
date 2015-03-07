@@ -142,6 +142,10 @@
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq require-final-newline t)
+
+(delete-selection-mode 1)
+(visual-line-mode 1)
 
 ;; Increase garbage-collection threshold
 (setq gc-cons-threshold 20000000)
@@ -216,7 +220,11 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (setq initial-scratch-message "")
-(setq inhibit-startup-message t)
+
+(setq inhibit-splash-screen t
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t)
+
 (setq visible-bell t)
 
 ;; BZG Big Fringe Mode - tiny mode (edited by rfinz)
