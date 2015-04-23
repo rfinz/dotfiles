@@ -194,6 +194,16 @@
   (local-set-key (kbd "M-<down>") 'web-mode-element-next))
 (add-hook 'web-mode-hook 'rfinz-web-hook)
 
+;; Server commands
+(defun server-shutdown ()
+  "Save buffers, Quit, and Shutdown (kill) server."
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs)
+  )
+
+
+
 ;; EMACS-FU change tracking
 ; DJCB
 ; http://emacs-fu.blogspot.com/2009/05/tracking-changes.html
