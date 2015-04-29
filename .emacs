@@ -141,6 +141,8 @@
 (set-face-foreground 'show-paren-match-face "#ff00aa")
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
+(delete-selection-mode 1)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Increase garbage-collection threshold
