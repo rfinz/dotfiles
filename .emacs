@@ -141,6 +141,8 @@
 (set-face-foreground 'show-paren-match-face "#ff00aa")
 (set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
 
+(delete-selection-mode 1)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq require-final-newline t)
 
@@ -197,6 +199,16 @@
   (local-set-key (kbd "M-<up>") 'web-mode-element-previous)
   (local-set-key (kbd "M-<down>") 'web-mode-element-next))
 (add-hook 'web-mode-hook 'rfinz-web-hook)
+
+;; Server commands
+(defun server-shutdown ()
+  "Save buffers, Quit, and Shutdown (kill) server."
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs)
+  )
+
+
 
 ;; EMACS-FU change tracking
 ; DJCB
