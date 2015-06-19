@@ -183,6 +183,14 @@
 	    (kill-buffer buffer)))
 	(buffer-list)))
 
+;; Kill all Ag Buffers
+(defun kill-ag-buffers ()
+  (interactive)
+  (mapc (lambda (buffer)
+	  (when (eq 'ag-mode (buffer-local-value 'major-mode buffer))
+	    (kill-buffer buffer)))
+	(buffer-list)))
+
 ;; Python keybindings
 (defun rfinz-python-hook ()
   "My personal preferences for python."
