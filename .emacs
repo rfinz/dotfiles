@@ -311,8 +311,8 @@
 (require 'diminish)
 (diminish 'projectile-mode)
 (diminish 'highlight-changes-mode)
-(diminish 'magit-auto-revert-mode)
 (diminish 'magit-gitflow-mode)
+(diminish 'visual-line-mode)
 
 (provide '.emacs)
 
