@@ -103,6 +103,7 @@
 
 (require 'magit)
 (global-set-key (kbd "<f7>") 'magit-status)
+(setq magit-push-always-verify 0)
 
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
