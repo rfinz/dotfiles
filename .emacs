@@ -24,6 +24,7 @@
 (setq package-list '(markdown-mode
 		     web-mode
 		     haskell-mode
+		     arduino-mode
 		     zenburn-theme
 		     expand-region
 		     multiple-cursors
