@@ -216,6 +216,16 @@
   (kill-emacs)
   )
 
+;; Emacs Wiki switch to minibuffer
+; https://www.emacswiki.org/emacs/MiniBuffer
+(defun switch-to-minibuffer ()
+  "Switch to minibuffer window."
+  (interactive)
+  (if (active-minibuffer-window)
+      (select-window (active-minibuffer-window))
+    (error "Minibuffer is not active")))
+
+(global-set-key "\C-cxo" 'switch-to-minibuffer)
 
 
 ;; EMACS-FU change tracking
