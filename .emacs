@@ -128,6 +128,7 @@
 (global-set-key (kbd "s-b") 'move-frame-left)
 (global-set-key (kbd "s-f") 'move-frame-right)
 
+
 ;; THEMES ;;
 
 (when (display-graphic-p)
@@ -325,6 +326,12 @@
 (diminish 'highlight-changes-mode)
 (diminish 'magit-gitflow-mode)
 (diminish 'visual-line-mode)
+
+
+;; System Specific
+(add-to-list 'load-path "/usr/local/bin/sclang")
+(require 'sclang)
+
 
 (provide '.emacs)
 
