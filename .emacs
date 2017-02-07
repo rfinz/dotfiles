@@ -42,7 +42,8 @@
 		     flx-ido
 		     ag
 		     frame-cmds
-		     evil))
+		     evil
+		     org))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -126,6 +127,35 @@
 (global-set-key (kbd "s-n") 'move-frame-down)
 (global-set-key (kbd "s-b") 'move-frame-left)
 (global-set-key (kbd "s-f") 'move-frame-right)
+
+(require 'org)
+(require 'ox-publish)
+(setq org-publish-project-alist
+      '(
+	("org-rfinz"
+	 :base-directory "~/Projects/rfinz/org/"
+	 :base-extension "org"
+	 :publishing-directory "~/Projects/rfinz/jekyll"
+	 :recursive t
+	 :publishing-function org-html-publish-to-html
+	 :headline-levels 4
+	 :html-extension "html"
+	 :body-only t
+	 )
+
+	("org-static-rfinz"
+	 :base-directory "~/Projects/rfinz/org/"
+	 :base-extension "html\\|css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+	 :publishing-directory "~/Projects/rfinz/jekyll"
+	 :recursive t
+	 :publishing-function org-publish-attachment
+	 )
+
+	("rfinz" :components ("org-rfinz" "org-static-rfinz"))
+	)
+      )
+
+
 
 
 ;; THEMES ;;
@@ -343,7 +373,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+    (org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
