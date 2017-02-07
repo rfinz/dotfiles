@@ -50,6 +50,9 @@
 
 
 ;; MODES ;;
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -58,6 +61,7 @@
 (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (setq web-mode-engines-alist '(("django" . "\\.html?\\'")) )
@@ -68,7 +72,6 @@
 (add-to-list 'auto-mode-alist '("\\.mdwn\\'" . markdown-mode))
 (add-hook 'markdown-mode-hook 'flyspell-mode)
 (add-hook 'markdown-mode-hook 'wc-mode)
-
 
 (require 'haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -111,12 +114,8 @@
 (require 'pyvenv)
 (add-hook 'python-mode-hook 'pyvenv-mode)
 
-(require 'exec-path-from-shell)
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
 (require 'projectile)
-(projectile-global-mode)
+(projectile-mode)
 
 (require 'frame-cmds)
 (global-set-key (kbd "<s-up>") 'move-frame-up)
@@ -205,6 +204,7 @@
 (defun rfinz-web-hook ()
   "My personal preferences for web development."
   (setq web-mode-markup-indent-offset 2)
+  (setq create-lockfiles nil)
   (local-set-key (kbd "M-<up>") 'web-mode-element-previous)
   (local-set-key (kbd "M-<down>") 'web-mode-element-next))
 (add-hook 'web-mode-hook 'rfinz-web-hook)
@@ -256,7 +256,7 @@
       inhibit-startup-message t
       inhibit-startup-echo-area-message t)
 
-(setq visible-bell t)
+(setq visible-bell 'top-bottom)
 
 ;; BZG Big Fringe Mode - tiny mode (edited by rfinz)
 (defvar bzg-big-fringe-mode nil)
@@ -329,10 +329,24 @@
 
 
 ;; System Specific
-(add-to-list 'load-path "/usr/local/bin/sclang")
-(require 'sclang)
+;; (add-to-list 'load-path "/usr/local/bin/sclang")
+;; (require 'sclang)
 
 
 (provide '.emacs)
 
 ;;; .emacs ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
