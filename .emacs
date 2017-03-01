@@ -130,6 +130,7 @@
 
 (require 'org)
 (require 'ox-publish)
+(add-hook 'org-mode-hook 'flyspell-mode)
 (setq org-publish-project-alist
       '(
 	("org-rfinz"
@@ -155,7 +156,15 @@
 	)
       )
 
+(defun org-custom-link-post-follow (path)
+  (org-open-file-with-emacs path))
 
+(defun org-custom-link-post-export (path desc format)
+  (cond
+   ((eq format 'html)
+    (format "<a href=\"{%% post_url %s %%}\">%s</a>" path desc))))
+
+(org-link-set-parameters "post" 'org-custom-link-post-follow 'org-custom-link-post-export)
 
 
 ;; THEMES ;;
