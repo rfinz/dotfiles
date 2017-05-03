@@ -21,7 +21,8 @@
 ;; initialize package manager and install missing packages
 (package-initialize)
 (defvar package-list)
-(setq package-list '(markdown-mode
+(setq package-list '(s
+		     markdown-mode
 		     web-mode
 		     haskell-mode
 		     arduino-mode
@@ -54,6 +55,8 @@
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+(require 's)
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -163,9 +166,9 @@
 (defun org-custom-link-post-export (path desc format)
   (cond
    ((eq format 'html)
-    (format "<a href=\"{%% post_url %s %%}\">%s</a>" path desc))))
+    (format "<a href=\"{%% post_url %s %%}\">%s</a>" (s-chop-suffix ".org" path) desc))))
 
-(org-link-set-parameters "post" 'org-custom-link-post-follow 'org-custom-link-post-export)
+(org-add-link-type "post" 'org-custom-link-post-follow 'org-custom-link-post-export)
 
 
 ;; THEMES ;;
@@ -383,7 +386,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+    (s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
