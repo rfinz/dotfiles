@@ -135,6 +135,10 @@
 (require 'org)
 (require 'ox-publish)
 (add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-agenda-mode-hook
+	  (lambda ()
+	    (add-hook 'projectile-mode-hook
+		      (setq org-agenda-files '(".")) t)))
 (setq org-publish-project-alist
       '(
 	("org-rfinz"
