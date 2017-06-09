@@ -135,6 +135,13 @@
 (require 'org)
 (require 'ox-publish)
 (add-hook 'org-mode-hook 'flyspell-mode)
+(setq org-default-notes-file (concat org-directory "/capture.org"))
+(global-set-key (kbd "<f9>") 'org-capture)
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
+             "* TODO %?\n  %i\n  %a" :prepend t)
+        ("s" "Store" entry (file+datetree (concat org-directory "/store.org"))
+             "* %?\nEntered on %U\n  %i\n  %a" :prepend t)))
 (add-hook 'org-agenda-mode-hook
 	  (lambda ()
 	    (add-hook 'projectile-mode-hook
