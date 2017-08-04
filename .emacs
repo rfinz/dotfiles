@@ -141,7 +141,10 @@
       '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
              "* TODO %?\n  %i\n  %a" :prepend t)
         ("s" "Store" entry (file+datetree (concat org-directory "/store.org"))
-             "* %?\nEntered on %U\n  %i\n  %a" :prepend t)))
+	 "* %?\nEntered on %U\n  %i\n  %a" :prepend t)
+	("c" "Clock" table-line (file (concat org-directory "/timetracking.org"))
+	 "| %?%U | %U | '%^{Project}' |  | %^{Work Type} | %^{Notes} |" :table-line-pos "I+1")
+	))
 (add-hook 'org-agenda-mode-hook
 	  (lambda ()
 	    (add-hook 'projectile-mode-hook
