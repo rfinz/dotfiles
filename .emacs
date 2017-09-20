@@ -24,6 +24,7 @@
 (setq package-list '(s
 		     markdown-mode
 		     web-mode
+		     js2-mode
 		     haskell-mode
 		     arduino-mode
 		     zenburn-theme
@@ -70,6 +71,9 @@
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (setq web-mode-engines-alist '(("django" . "\\.html?\\'")) )
+
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (require 'wc-mode)
 (require 'markdown-mode)
