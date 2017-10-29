@@ -46,7 +46,8 @@
 		     ag
 		     frame-cmds
 		     evil
-		     org))
+		     org
+		     htmlize))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -406,7 +407,7 @@
  '(delete-selection-mode nil)
  '(package-selected-packages
    (quote
-    (rust-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+    (htmlize rust-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
