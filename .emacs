@@ -34,6 +34,7 @@
 		     flycheck
 		     exec-path-from-shell
 		     pyvenv
+		     ob-ipython
 		     move-text
 		     neotree
 		     wc-mode
@@ -41,10 +42,12 @@
 		     magit
 		     magit-gitflow
 		     projectile
+		     company
+		     company-jedi
 		     diminish
 		     flx-ido
 		     ag
-		     frame-cmds
+		     ;;frame-cmds
 		     evil
 		     org
 		     htmlize))
@@ -78,11 +81,16 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (require 'wc-mode)
+
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.mdwn\\'" . markdown-mode))
 (add-hook 'markdown-mode-hook 'flyspell-mode)
 (add-hook 'markdown-mode-hook 'wc-mode)
+
+;; Latex Mode
+(add-hook 'latex-mode-hook 'flyspell-mode)
+(add-hook 'latex-mode-hook 'wc-mode)
 
 (require 'haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -112,6 +120,9 @@
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (global-set-key (kbd "C-.") 'flycheck-mode)
 
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+
 (require 'neotree)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 
@@ -128,19 +139,20 @@
 (require 'projectile)
 (projectile-mode)
 
-(require 'frame-cmds)
-(global-set-key (kbd "<s-up>") 'move-frame-up)
-(global-set-key (kbd "<s-down>") 'move-frame-down)
-(global-set-key (kbd "<s-left>") 'move-frame-left)
-(global-set-key (kbd "<s-right>") 'move-frame-right)
-(global-set-key (kbd "s-p") 'move-frame-up)
-(global-set-key (kbd "s-n") 'move-frame-down)
-(global-set-key (kbd "s-b") 'move-frame-left)
-(global-set-key (kbd "s-f") 'move-frame-right)
+;; (require 'frame-cmds)
+;; (global-set-key (kbd "<s-up>") 'move-frame-up)
+;; (global-set-key (kbd "<s-down>") 'move-frame-down)
+;; (global-set-key (kbd "<s-left>") 'move-frame-left)
+;; (global-set-key (kbd "<s-right>") 'move-frame-right)
+;; (global-set-key (kbd "s-p") 'move-frame-up)
+;; (global-set-key (kbd "s-n") 'move-frame-down)
+;; (global-set-key (kbd "s-b") 'move-frame-left)
+;; (global-set-key (kbd "s-f") 'move-frame-right)
 
 (require 'org)
 (require 'ox-publish)
 (add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'wc-mode)
 (setq org-default-notes-file (concat org-directory "/capture.org"))
 (global-set-key (kbd "<f9>") 'org-capture)
 (setq org-capture-templates
@@ -189,6 +201,22 @@
     (format "<a href=\"{%% post_url %s %%}\">%s</a>" (s-chop-suffix ".org" path) desc))))
 
 (org-add-link-type "post" 'org-custom-link-post-follow 'org-custom-link-post-export)
+
+(require 'ob-ipython)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ipython . t)
+   ))
+
+;; src block behavior
+(setq org-src-fontify-natively t
+      org-src-tab-acts-natively t
+      org-confirm-babel-evaluate nil
+      org-edit-src-content-indentation 0)
+
+;; Display/update images in the buffer after evaluation
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
 
 
 ;; THEMES ;;
@@ -259,6 +287,7 @@
 ;; Python keybindings
 (defun rfinz-python-hook ()
   "My personal preferences for python."
+  (add-to-list 'company-backends 'company-jedi)
   (local-set-key (kbd "M-<up>") 'move-text-up)
   (local-set-key (kbd "M-<down>") 'move-text-down))
 (add-hook 'python-mode-hook 'rfinz-python-hook)
@@ -389,7 +418,7 @@
 (diminish 'highlight-changes-mode)
 (diminish 'magit-gitflow-mode)
 (diminish 'visual-line-mode)
-
+(diminish 'company-mode)
 
 ;; System Specific
 ;; (add-to-list 'load-path "/usr/local/bin/sclang")
@@ -404,10 +433,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(delete-selection-mode nil)
  '(package-selected-packages
    (quote
-    (htmlize rust-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+    (js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
