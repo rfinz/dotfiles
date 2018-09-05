@@ -1,5 +1,5 @@
 ;;; rfinz --- a dot emacs file
-(add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;;; Commentary:
 
@@ -28,6 +28,7 @@
 		     haskell-mode
 		     rust-mode
 		     arduino-mode
+		     yaml-mode
 		     zenburn-theme
 		     expand-region
 		     multiple-cursors
@@ -50,7 +51,8 @@
 		     ;;frame-cmds
 		     evil
 		     org
-		     htmlize))
+		     htmlize
+		     unfill))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -108,6 +110,8 @@
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward)
+
+(require 'unfill)
 
 (require 'ido)
 (ido-mode t)
@@ -221,8 +225,7 @@
 
 ;; THEMES ;;
 
-(when (display-graphic-p)
-  (load-theme 'zenburn t))
+(load-theme 'zenburn t)
 
 ;; USEABILITY ;;
 
@@ -268,6 +271,10 @@
 (global-set-key (kbd "C-S-<iso-lefttab>") 'previous-buffer)
 (global-set-key (kbd "C-S-<tab>") 'previous-buffer)
 
+;; Toggle Fill/Unfill
+(global-set-key (kbd "M-q") 'unfill-toggle)
+
+
 ;; Kill all Dired Buffers
 (defun kill-dired-buffers ()
   (interactive)
@@ -300,6 +307,8 @@
   (local-set-key (kbd "M-<up>") 'web-mode-element-previous)
   (local-set-key (kbd "M-<down>") 'web-mode-element-next))
 (add-hook 'web-mode-hook 'rfinz-web-hook)
+
+(require 'rfinz-server)
 
 ;; Server commands
 (defun server-shutdown ()
@@ -435,7 +444,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+    (unfill yaml-mode js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
