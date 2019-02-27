@@ -214,7 +214,9 @@ Extra processing can be done if necessary."
    ((eq format 'html)
     (format "<a href=\"{%% post_url %s %%}\">%s</a>" (s-chop-suffix ".org" path) desc))))
 
-(org-add-link-type "post" 'org-custom-link-post-follow 'org-custom-link-post-export)
+(org-link-set-parameters "post"
+			 :follow 'org-custom-link-post-follow
+			 :export 'org-custom-link-post-export)
 
 (require 'ob-ipython)
 (org-babel-do-load-languages
