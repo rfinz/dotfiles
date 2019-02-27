@@ -1,5 +1,4 @@
 ;;; rfinz --- a dot emacs file
-(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;;; Commentary:
 
@@ -10,8 +9,7 @@
 ;; use package manager and add archives
 (require 'package)
 (setq package-archives
-    '(("marmalade" . "http://marmalade-repo.org/packages/")
-      ("melpa" . "http://melpa.milkbox.net/packages/")
+    '(("melpa" . "http://melpa.milkbox.net/packages/")
       ("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;; refresh package list
@@ -27,6 +25,7 @@
 		     js2-mode
 		     haskell-mode
 		     rust-mode
+		     groovy-mode
 		     arduino-mode
 		     yaml-mode
 		     zenburn-theme
@@ -43,8 +42,9 @@
 		     magit
 		     magit-gitflow
 		     projectile
+		     paredit
+		     paredit-everywhere
 		     company
-		     company-jedi
 		     diminish
 		     flx-ido
 		     ag
@@ -57,7 +57,7 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; MODES ;;
 (require 'exec-path-from-shell)
@@ -65,6 +65,9 @@
   (exec-path-from-shell-initialize))
 
 (require 's)
+
+;; Emacs-Lisp
+(add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode t)))
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -122,6 +125,7 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
+(setq-default flycheck-emacs-lisp-load-path 'inherit)
 (global-set-key (kbd "C-.") 'flycheck-mode)
 
 (require 'company)
@@ -141,7 +145,8 @@
 (add-hook 'python-mode-hook 'pyvenv-mode)
 
 (require 'projectile)
-(projectile-mode)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; (require 'frame-cmds)
 ;; (global-set-key (kbd "<s-up>") 'move-frame-up)
@@ -159,6 +164,8 @@
 (add-hook 'org-mode-hook 'wc-mode)
 (setq org-default-notes-file (concat org-directory "/capture.org"))
 (global-set-key (kbd "<f9>") 'org-capture)
+
+(defvar org-capture-templates)
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
              "* TODO %?\n  %i\n  %a" :prepend t)
@@ -197,9 +204,12 @@
       )
 
 (defun org-custom-link-post-follow (path)
+  "Interface to org-open-file-with-emacs that takes PATH.
+Extra processing can be done if necessary."
   (org-open-file-with-emacs path))
 
 (defun org-custom-link-post-export (path desc format)
+  "Format website link from org file path: takes PATH, DESC, FORMAT."
   (cond
    ((eq format 'html)
     (format "<a href=\"{%% post_url %s %%}\">%s</a>" (s-chop-suffix ".org" path) desc))))
@@ -230,18 +240,20 @@
 ;; USEABILITY ;;
 
 (column-number-mode 1)
+(delete-selection-mode 1)
+(visual-line-mode 1)
+(setq scroll-error-top-bottom 1)
 
+
+(require 'paren)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
-(set-face-background 'show-paren-match-face (face-background 'default))
-(set-face-foreground 'show-paren-match-face "#ff00aa")
-(set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-foreground 'show-paren-match "#ff00aa")
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq require-final-newline t)
-
-(delete-selection-mode 1)
-(visual-line-mode 1)
 
 ;; Increase garbage-collection threshold
 (setq gc-cons-threshold 20000000)
@@ -275,16 +287,16 @@
 (global-set-key (kbd "M-q") 'unfill-toggle)
 
 
-;; Kill all Dired Buffers
 (defun kill-dired-buffers ()
+  "Kill all Dired Buffers."
   (interactive)
   (mapc (lambda (buffer)
 	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
 	    (kill-buffer buffer)))
 	(buffer-list)))
 
-;; Kill all Ag Buffers
 (defun kill-ag-buffers ()
+  "Kill all Ag buffers."
   (interactive)
   (mapc (lambda (buffer)
 	  (when (eq 'ag-mode (buffer-local-value 'major-mode buffer))
@@ -294,7 +306,6 @@
 ;; Python keybindings
 (defun rfinz-python-hook ()
   "My personal preferences for python."
-  (add-to-list 'company-backends 'company-jedi)
   (local-set-key (kbd "M-<up>") 'move-text-up)
   (local-set-key (kbd "M-<down>") 'move-text-down))
 (add-hook 'python-mode-hook 'rfinz-python-hook)
@@ -427,7 +438,10 @@
 (diminish 'highlight-changes-mode)
 (diminish 'magit-gitflow-mode)
 (diminish 'visual-line-mode)
-(diminish 'company-mode)
+(diminish 'auto-revert-mode)
+(eval-after-load "company" '(diminish 'company-mode))
+(eval-after-load "paredit" '(diminish 'paredit-mode))
+(eval-after-load "eldoc" '(diminish 'eldoc-mode))
 
 ;; System Specific
 ;; (add-to-list 'load-path "/usr/local/bin/sclang")
@@ -444,7 +458,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (unfill yaml-mode js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+    (rust-mode ob-ipython company htmlize groovy-mode unfill yaml-mode js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
