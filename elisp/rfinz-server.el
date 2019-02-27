@@ -1,4 +1,4 @@
-;;; server --- Start server
+;;; rfinz-server.el --- Start server  -*- Mode: Emacs-Lisp -*-
 ;;; Commentary:
 
 ;;; Code:
