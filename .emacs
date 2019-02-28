@@ -244,6 +244,7 @@ Extra processing can be done if necessary."
 (column-number-mode 1)
 (delete-selection-mode 1)
 (visual-line-mode 1)
+(save-place-mode 1)
 (setq scroll-error-top-bottom 1)
 
 
@@ -365,6 +366,7 @@ Extra processing can be done if necessary."
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (setq initial-scratch-message "")
+(setq initial-major-mode 'org-mode) ; sorry Gwern
 
 (setq inhibit-splash-screen t
       inhibit-startup-message t
