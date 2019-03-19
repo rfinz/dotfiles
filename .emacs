@@ -20,39 +20,39 @@
 (package-initialize)
 (defvar package-list)
 (setq package-list '(s
-		     markdown-mode
-		     web-mode
-		     js2-mode
-		     haskell-mode
-		     rust-mode
-		     groovy-mode
-		     arduino-mode
-		     yaml-mode
-		     zenburn-theme
-		     expand-region
-		     multiple-cursors
-		     flycheck
-		     exec-path-from-shell
-		     pyvenv
-		     ob-ipython
-		     move-text
-		     neotree
-		     wc-mode
-		     monokai-theme
-		     magit
-		     magit-gitflow
-		     projectile
-		     paredit
-		     paredit-everywhere
-		     company
-		     diminish
-		     flx-ido
-		     ag
-		     ;;frame-cmds
-		     evil
-		     org
-		     htmlize
-		     unfill))
+                     markdown-mode
+                     web-mode
+                     js2-mode
+                     haskell-mode
+                     rust-mode
+                     groovy-mode
+                     arduino-mode
+                     yaml-mode
+                     zenburn-theme
+                     expand-region
+                     multiple-cursors
+                     flycheck
+                     exec-path-from-shell
+                     pyvenv
+                     ob-ipython
+                     move-text
+                     neotree
+                     wc-mode
+                     monokai-theme
+                     magit
+                     magit-gitflow
+                     projectile
+                     paredit
+                     paredit-everywhere
+                     company
+                     diminish
+                     flx-ido
+                     ag
+                     ;;frame-cmds
+                     evil
+                     org
+                     htmlize
+                     unfill))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -170,37 +170,37 @@
       '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
              "* TODO %?\n  %i\n  %a" :prepend t)
         ("s" "Store" entry (file+datetree (concat org-directory "/store.org"))
-	 "* %?\nEntered on %U\n  %i\n  %a" :prepend t)
-	("c" "Clock" table-line (file (concat org-directory "/timetracking.org"))
-	 "| %?%U | %U | '%^{Project}' |  | %^{Work Type} | %^{Notes} |" :table-line-pos "I+1")
-	))
+         "* %?\nEntered on %U\n  %i\n  %a" :prepend t)
+        ("c" "Clock" table-line (file (concat org-directory "/timetracking.org"))
+         "| %?%U | %U | '%^{Project}' |  | %^{Work Type} | %^{Notes} |" :table-line-pos "I+1")
+        ))
 (add-hook 'org-agenda-mode-hook
-	  (lambda ()
-	    (add-hook 'projectile-mode-hook
-		      (setq org-agenda-files '(".")) t)))
+          (lambda ()
+            (add-hook 'projectile-mode-hook
+                      (setq org-agenda-files '(".")) t)))
 (setq org-publish-project-alist
       '(
-	("org-rfinz"
-	 :base-directory "~/Projects/rfinz/org/"
-	 :base-extension "org"
-	 :publishing-directory "~/Projects/rfinz/jekyll"
-	 :recursive t
-	 :publishing-function org-html-publish-to-html
-	 :headline-levels 4
-	 :html-extension "html"
-	 :body-only t
-	 )
+        ("org-rfinz"
+         :base-directory "~/Projects/rfinz/org/"
+         :base-extension "org"
+         :publishing-directory "~/Projects/rfinz/jekyll"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :html-extension "html"
+         :body-only t
+         )
 
-	("org-static-rfinz"
-	 :base-directory "~/Projects/rfinz/org/"
-	 :base-extension "html\\|css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-	 :publishing-directory "~/Projects/rfinz/jekyll"
-	 :recursive t
-	 :publishing-function org-publish-attachment
-	 )
+        ("org-static-rfinz"
+         :base-directory "~/Projects/rfinz/org/"
+         :base-extension "html\\|css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+         :publishing-directory "~/Projects/rfinz/jekyll"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
 
-	("rfinz" :components ("org-rfinz" "org-static-rfinz"))
-	)
+        ("rfinz" :components ("org-rfinz" "org-static-rfinz"))
+        )
       )
 
 (defun org-custom-link-post-follow (path)
@@ -215,8 +215,8 @@ Extra processing can be done if necessary."
     (format "<a href=\"{%% post_url %s %%}\">%s</a>" (s-chop-suffix ".org" path) desc))))
 
 (org-link-set-parameters "post"
-			 :follow 'org-custom-link-post-follow
-			 :export 'org-custom-link-post-export)
+                         :follow 'org-custom-link-post-follow
+                         :export 'org-custom-link-post-export)
 
 (require 'ob-ipython)
 (org-babel-do-load-languages
@@ -303,11 +303,10 @@ Extra processing can be done if necessary."
                                   (lambda () (delete-windows-on "*Completions*")))))
 
 ;; Turns tabs into spaces
+;; http://www.jwz.org/doc/tabs-vs-spaces.html improved by Claus Brunzem
 ; via Gwern
 (defun ska-untabify ()
-  "My untabify function as discussed and described at
- http://www.jwz.org/doc/tabs-vs-spaces.html
- and improved by Claus Brunzem"
+  "Untabify whole buffer."
   (save-excursion
     (goto-char (point-min))
     (when (search-forward "\t" nil t)
@@ -321,17 +320,17 @@ Extra processing can be done if necessary."
   "Kill all Dired Buffers."
   (interactive)
   (mapc (lambda (buffer)
-	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
-	    (kill-buffer buffer)))
-	(buffer-list)))
+          (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+            (kill-buffer buffer)))
+        (buffer-list)))
 
 (defun kill-ag-buffers ()
   "Kill all Ag buffers."
   (interactive)
   (mapc (lambda (buffer)
-	  (when (eq 'ag-mode (buffer-local-value 'major-mode buffer))
-	    (kill-buffer buffer)))
-	(buffer-list)))
+          (when (eq 'ag-mode (buffer-local-value 'major-mode buffer))
+            (kill-buffer buffer)))
+        (buffer-list)))
 
 ;; Python keybindings
 (defun rfinz-python-hook ()
@@ -411,15 +410,15 @@ Extra processing can be done if necessary."
   :group 'editing-basics
   (if (not bzg-big-fringe-mode)
       (progn
-	(set-fringe-style nil)
-	(setcdr (assq 'continuation fringe-indicator-alist)
-	    '(left-curly-arrow right-curly-arrow)))
+        (set-fringe-style nil)
+        (setcdr (assq 'continuation fringe-indicator-alist)
+            '(left-curly-arrow right-curly-arrow)))
     (progn
       (set-fringe-style
        (max (/ (* (- (window-total-width) 80) (frame-char-width)) 2) 8))
 
       (setcdr (assq 'continuation fringe-indicator-alist)
-	    '(nil nil)))))
+            '(nil nil)))))
 
 (global-set-key (kbd "C-`") 'bzg-big-fringe-mode)
 
