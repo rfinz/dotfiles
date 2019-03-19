@@ -313,7 +313,6 @@ Extra processing can be done if necessary."
 ;; Activate untabify for all prog-modes
 (add-hook 'prog-mode-hook
           '(lambda ()
-             (message "[prog-mode-hook]")
              (setq indent-tabs-mode nil)
              (add-hook 'write-contents-functions 'ska-untabify)))
 
