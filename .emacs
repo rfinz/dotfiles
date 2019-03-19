@@ -255,11 +255,8 @@ Extra processing can be done if necessary."
 (set-face-foreground 'show-paren-match "#ff00aa")
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'write-contents-functions 'delete-trailing-whitespace)
 (setq require-final-newline t)
-
-;; Use only spaces for indentation
-(setq indent-tabs-mode nil)
 
 ;; Increase garbage-collection threshold
 (setq gc-cons-threshold 20000000)
@@ -312,9 +309,13 @@ Extra processing can be done if necessary."
     (when (search-forward "\t" nil t)
       (untabify (1- (point)) (point-max)))
     nil))
-(add-hook 'after-save-hook
+
+;; Activate untabify for all prog-modes
+(add-hook 'prog-mode-hook
           '(lambda ()
-             (add-hook 'write-contents-functions 'ska-untabify nil t)))
+             (message "[prog-mode-hook]")
+             (setq indent-tabs-mode nil)
+             (add-hook 'write-contents-functions 'ska-untabify)))
 
 (defun kill-dired-buffers ()
   "Kill all Dired Buffers."
