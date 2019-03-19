@@ -258,6 +258,9 @@ Extra processing can be done if necessary."
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq require-final-newline t)
 
+;; Use only spaces for indentation
+(setq indent-tabs-mode nil)
+
 ;; Increase garbage-collection threshold
 (setq gc-cons-threshold 20000000)
 
@@ -289,6 +292,30 @@ Extra processing can be done if necessary."
 ;; Toggle Fill/Unfill
 (global-set-key (kbd "M-q") 'unfill-toggle)
 
+;; Remap set-fill-column to find-file
+(global-set-key "\C-x\ f" 'find-file)
+
+;; Make completion buffers in a shell disappear after 10 seconds.
+; http://snarfed.org/space/why+I+don't+run+shells+inside+Emacs
+; via Gwern - https://en.wikipedia.org/wiki/User%3AGwern%2F.emacs
+(add-hook 'completion-setup-hook
+          (lambda () (run-at-time 10 nil
+                                  (lambda () (delete-windows-on "*Completions*")))))
+
+;; Turns tabs into spaces
+; via Gwern
+(defun ska-untabify ()
+  "My untabify function as discussed and described at
+ http://www.jwz.org/doc/tabs-vs-spaces.html
+ and improved by Claus Brunzem"
+  (save-excursion
+    (goto-char (point-min))
+    (when (search-forward "\t" nil t)
+      (untabify (1- (point)) (point-max)))
+    nil))
+(add-hook 'after-save-hook
+          '(lambda ()
+             (add-hook 'write-contents-functions 'ska-untabify nil t)))
 
 (defun kill-dired-buffers ()
   "Kill all Dired Buffers."
