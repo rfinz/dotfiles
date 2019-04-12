@@ -400,7 +400,12 @@ Extra processing can be done if necessary."
       inhibit-startup-message t
       inhibit-startup-echo-area-message t)
 
-(setq visible-bell 'top-bottom)
+(setq visible-bell t
+      ring-bell-function 'flash-mode-line)
+(defun flash-mode-line ()
+  "Emacswiki function to flash the mode line."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 ;; BZG Big Fringe Mode - tiny mode (edited by rfinz)
 (defvar bzg-big-fringe-mode nil)
