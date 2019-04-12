@@ -341,12 +341,17 @@ Extra processing can be done if necessary."
             (kill-buffer buffer)))
         (buffer-list)))
 
-(defun kill-magit-diff-buffers ()
-  "Kill all Magit Diff buffers."
+(defun kill-magit-buffers ()
+  "Kill all extra Magit buffers."
   (interactive)
   (mapc (lambda (buffer)
           (when (eq 'magit-diff-mode (buffer-local-value 'major-mode buffer))
-            (kill-buffer buffer)))
+            (kill-buffer buffer))
+          (when (eq 'magit-revision-mode (buffer-local-value 'major-mode buffer))
+            (kill-buffer buffer))
+          (when (eq 'magit-process-mode (buffer-local-value 'major-mode buffer))
+            (kill-buffer buffer))
+          )
         (buffer-list)))
 
 ;; Python keybindings
