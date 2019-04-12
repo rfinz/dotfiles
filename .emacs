@@ -341,6 +341,14 @@ Extra processing can be done if necessary."
             (kill-buffer buffer)))
         (buffer-list)))
 
+(defun kill-magit-diff-buffers ()
+  "Kill all Magit Diff buffers."
+  (interactive)
+  (mapc (lambda (buffer)
+          (when (eq 'magit-diff-mode (buffer-local-value 'major-mode buffer))
+            (kill-buffer buffer)))
+        (buffer-list)))
+
 ;; Python keybindings
 (defun rfinz-python-hook ()
   "My personal preferences for python."
