@@ -252,9 +252,10 @@ Extra processing can be done if necessary."
 (require 'paren)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
-(set-face-background 'show-paren-match (face-background 'default))
-(set-face-foreground 'show-paren-match "#ff00aa")
-(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+(set-face-attribute 'show-paren-match nil
+                    :weight 'bold
+                    :foreground "#ff00aa"
+                    :background (face-attribute 'default :background))
 
 (add-hook 'write-contents-functions 'delete-trailing-whitespace)
 (setq require-final-newline t)
