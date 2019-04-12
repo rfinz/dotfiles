@@ -52,7 +52,8 @@
                      evil
                      org
                      htmlize
-                     unfill))
+                     unfill
+                     challenger-deep-theme))
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -237,7 +238,7 @@ Extra processing can be done if necessary."
 
 ;; THEMES ;;
 
-(load-theme 'zenburn t)
+(load-theme 'challenger-deep t)
 
 ;; USEABILITY ;;
 
