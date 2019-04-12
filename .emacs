@@ -238,7 +238,7 @@ Extra processing can be done if necessary."
 
 ;; THEMES ;;
 
-(load-theme 'challenger-deep t)
+(load-theme 'monokai t)
 
 ;; USEABILITY ;;
 
@@ -254,8 +254,9 @@ Extra processing can be done if necessary."
 (setq show-paren-delay 0)
 (set-face-attribute 'show-paren-match nil
                     :weight 'bold
-                    :foreground "#ff00aa"
-                    :background (face-attribute 'default :background))
+                    :foreground "#fd5ff0" ;monokai magenta
+                    :background (face-attribute 'default :background)
+                    :inverse-video nil)
 
 (add-hook 'write-contents-functions 'delete-trailing-whitespace)
 (setq require-final-newline t)
