@@ -263,6 +263,12 @@ Extra processing can be done if necessary."
 ;; Increase garbage-collection threshold
 (setq gc-cons-threshold 20000000)
 
+;; Increase max variable bindings
+(setq max-specpdl-size 13000)
+
+;; Increase eval depth
+(setq max-lisp-eval-depth 20000)
+
 ;; Bug in Emacs prevents this from being useful
 ;; ;; Auto refresh buffers
 ;; (global-auto-revert-mode 1)
