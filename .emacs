@@ -26,6 +26,8 @@
                      haskell-mode
                      rust-mode
                      groovy-mode
+                     clojure-mode
+                     cider
                      arduino-mode
                      yaml-mode
                      zenburn-theme
@@ -69,6 +71,9 @@
 
 ;; Emacs-Lisp
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode t)))
+
+;; Clojure
+(add-hook 'clojure-mode-hook (lambda () (paredit-mode t)))
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -515,7 +520,7 @@ Extra processing can be done if necessary."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (rust-mode ob-ipython company htmlize groovy-mode unfill yaml-mode js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+    (cider clojure-mode rust-mode ob-ipython company htmlize groovy-mode unfill yaml-mode js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
