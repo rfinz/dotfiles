@@ -75,6 +75,15 @@
 ;; Clojure
 (add-hook 'clojure-mode-hook (lambda () (paredit-mode t)))
 
+;; making paredit work with delete-selection-mode
+; http://whattheemacsd.com/setup-paredit.el-03.html
+(put 'paredit-forward-delete 'delete-selection 'supersede)
+(put 'paredit-backward-delete 'delete-selection 'supersede)
+(put 'paredit-open-round 'delete-selection t)
+(put 'paredit-open-square 'delete-selection t)
+(put 'paredit-doublequote 'delete-selection t)
+(put 'paredit-newline 'delete-selection t)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
