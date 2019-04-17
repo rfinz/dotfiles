@@ -151,6 +151,7 @@
 
 (require 'magit)
 (global-set-key (kbd "<f7>") 'magit-status)
+(defvar magit-push-always-verify)
 (setq magit-push-always-verify 0)
 
 (require 'magit-gitflow)
@@ -412,6 +413,7 @@ Extra processing can be done if necessary."
 ;; EMACS-FU change tracking
 ; DJCB
 ; http://emacs-fu.blogspot.com/2009/05/tracking-changes.html
+(defvar highlight-changes-visibility-initial-state)
 (setq highlight-changes-visibility-initial-state nil)
 (global-highlight-changes-mode t)
 (set-face-background 'highlight-changes "#7ACC7A")
