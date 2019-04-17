@@ -320,7 +320,10 @@ Extra processing can be done if necessary."
 ; via Gwern - https://en.wikipedia.org/wiki/User%3AGwern%2F.emacs
 (add-hook 'completion-setup-hook
           (lambda () (run-at-time 10 nil
-                                  (lambda () (delete-windows-on "*Completions*")))))
+                                  (lambda ()
+                                    (delete-windows-on "*Completions*")
+                                    (kill-buffer "*Completions*")
+                                    ))))
 
 ;; Turns tabs into spaces
 ;; http://www.jwz.org/doc/tabs-vs-spaces.html improved by Claus Brunzem
