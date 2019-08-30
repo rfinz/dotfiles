@@ -73,7 +73,7 @@
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode t)))
 
 ;; Clojure
-(add-hook 'clojure-mode-hook (lambda () (paredit-mode t)))
+(add-hook 'clojure-mode-hook (lambda () (paredit-mode t) (cider-mode t)))
 
 ;; making paredit work with delete-selection-mode
 ; http://whattheemacsd.com/setup-paredit.el-03.html
@@ -323,7 +323,6 @@ Extra processing can be done if necessary."
           (lambda () (run-at-time 10 nil
                                   (lambda ()
                                     (delete-windows-on "*Completions*")
-                                    (kill-buffer "*Completions*")
                                     ))))
 
 ;; Turns tabs into spaces
@@ -455,16 +454,16 @@ Extra processing can be done if necessary."
   :variable bzg-big-fringe-mode
   :group 'editing-basics
   (if (not bzg-big-fringe-mode)
-      (progn
-        (set-fringe-style nil)
-        (setcdr (assq 'continuation fringe-indicator-alist)
-            '(left-curly-arrow right-curly-arrow)))
-    (progn
-      (set-fringe-style
-       (max (/ (* (- (window-total-width) 80) (frame-char-width)) 2) 8))
-
+    (let ((frame-inhibit-implied-resize t))
+          (set-fringe-style nil)
+          (setcdr (assq 'continuation fringe-indicator-alist)
+                  '(left-curly-arrow right-curly-arrow)))
+    (let ((fw (/ (- (window-pixel-width) (* 88 (window-font-width))) 2))
+          (frame-inhibit-implied-resize t))
+      (set-fringe-style (max fw 8))
       (setcdr (assq 'continuation fringe-indicator-alist)
-            '(nil nil)))))
+              '(nil nil))
+      )))
 
 (global-set-key (kbd "C-`") 'bzg-big-fringe-mode)
 
