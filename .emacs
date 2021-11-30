@@ -8,9 +8,7 @@
 
 ;; use package manager and add archives
 (require 'package)
-(setq package-archives
-    '(("melpa" . "http://melpa.milkbox.net/packages/")
-      ("gnu" . "http://elpa.gnu.org/packages/")))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; refresh package list
 (or (file-exists-p package-user-dir)
@@ -30,13 +28,15 @@
                      cider
                      arduino-mode
                      yaml-mode
+                     dockerfile-mode
                      zenburn-theme
                      expand-region
                      multiple-cursors
                      flycheck
                      exec-path-from-shell
                      pyvenv
-                     ob-ipython
+                     ;;ob-ipython
+                     ein
                      move-text
                      neotree
                      wc-mode
@@ -160,6 +160,8 @@
 (require 'pyvenv)
 (add-hook 'python-mode-hook 'pyvenv-mode)
 
+(require 'ein)
+
 (require 'projectile)
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -234,11 +236,11 @@ Extra processing can be done if necessary."
                          :follow 'org-custom-link-post-follow
                          :export 'org-custom-link-post-export)
 
-(require 'ob-ipython)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((ipython . t)
-   ))
+;; (require 'ob-ipython)
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((ipython . t)
+;;    ))
 
 ;; src block behavior
 (setq org-src-fontify-natively t
@@ -532,8 +534,7 @@ Extra processing can be done if necessary."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (cider clojure-mode rust-mode ob-ipython company htmlize groovy-mode unfill yaml-mode js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode))))
+   '(ein dockerfile-mode cider clojure-mode rust-mode company htmlize groovy-mode unfill yaml-mode js2-mode s save-packages ## org evil frame-cmds ag flx-ido diminish projectile magit-gitflow magit monokai-theme wc-mode neotree move-text pyvenv exec-path-from-shell flycheck multiple-cursors expand-region zenburn-theme arduino-mode haskell-mode web-mode markdown-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
